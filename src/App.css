@@ -5,3 +5,10 @@
 table {
   margin: auto;
 }
+.todo-cell {
+  display: flex;
+  align-items: center;
+}
+.todo-cell h3 {
+  margin: 0 8px;
+}

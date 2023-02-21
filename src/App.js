@@ -20,23 +20,26 @@ function App() {
   return (
     <div className="App">
       <input placeholder="Description" name="description" value={todo.description} onChange={inputChanged} />
-      <input placeholder="Time" name="time" value={todo.time} onChange={inputChanged}/>
-      <input placeholder="Date" name="date" value={todo.date} onChange={inputChanged}/>
+      <input type={'time'} placeholder="Time" name="time" value={todo.time} onChange={inputChanged}/>
+      <input type={"date"} placeholder="Date" name="date" value={todo.date} onChange={inputChanged}/>
       <button onClick={addTodo}>Add</button>
       <table>
-        <tbody>
-       {
-          todos.map((todo, index) => 
-            <tr key={index}>
-              <td>{todo.description}</td>
-             <td>{todo.date}</td>
-              <td>{todo.time}</td>
-             <td><button onClick={() => deleteTodo(index)} style= {{color: "red"}}>Delete</button></td>
-            </tr>
-            )
-        }
-        </tbody>
-      </table>
+  <tbody>
+    {todos.map((todo, index) => (
+      <tr key={index}>
+        <td className='todo-cell'>
+          To do <h3>{todo.description}</h3> by <h3>{todo.time}</h3> on <h3>{todo.date}</h3>
+        </td>
+        <td>
+          <button onClick={() => deleteTodo(index)} style={{ color: "red" }}>
+            Delete
+          </button>
+        </td>
+      </tr>
+    ))}
+  </tbody>
+</table>
+
     </div>
   );
 }
