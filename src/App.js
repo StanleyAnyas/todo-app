@@ -2,7 +2,7 @@ import './App.css';
 import React, { useState } from 'react';
 
 function App() {
-    const [todo, setTodo] = useState({description: '', date: '', time: ''});
+    const [todo, setTodo] = useState({description: '', date: '', time: '', done: false});
     const [todos, setTodos] = useState([]);
 
     const inputChanged = (event) => {
@@ -16,7 +16,9 @@ function App() {
   const deleteTodo = (row) => {
     setTodos(todos.filter((todo, index) => index !== row));
   }
-
+  const doneTodo = (row) => {
+    setTodos(todos.map((todo, index) => index === row ? {...todo, done: true} : todo));
+  }
   return (
     <div className="App">
       <input placeholder="Description" name="description" value={todo.description} onChange={inputChanged} />
@@ -26,7 +28,7 @@ function App() {
       <table>
   <tbody>
     {todos.map((todo, index) => (
-      <tr key={index}>
+      <tr key={index} style={{ backgroundColor: todo.done ? 'green' : 'transparent' }}>
         <td className='todo-cell'>
           To do <h3>{todo.description}</h3> by <h3>{todo.time}</h3> on <h3>{todo.date}</h3>
         </td>
@@ -34,6 +36,9 @@ function App() {
           <button onClick={() => deleteTodo(index)} style={{ color: "red" }}>
             Delete
           </button>
+          {!todo.done && <button onClick={() => doneTodo(index)} style={{ color: "green" }}>
+            Done
+          </button>}
         </td>
       </tr>
     ))}
