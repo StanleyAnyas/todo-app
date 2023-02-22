@@ -39,7 +39,7 @@ function App() {
     {todos.map((todo, index) => (
       <tr key={index} style={{ backgroundColor: todo.done ? 'green' : 'transparent' }}>
         <td className='todo-cell'>
-          To do <h3>{todo.description}</h3> by <h3>{todo.time}</h3> on <h3>{todo.date}</h3>
+          <h3>{todo.description}</h3> by <h3>{todo.time}</h3> on <h3>{todo.date}</h3>
         </td>
         <td>
           <button onClick={() => deleteTodo(index)} style={{ color: "red" }}>
