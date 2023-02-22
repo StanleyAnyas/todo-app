@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 function App() {
     const [todo, setTodo] = useState({description: '', date: '', time: '', done: false});
     const [todos, setTodos] = useState([]);
+    const [filled, setFilled] = useState(" ");
 
     const inputChanged = (event) => {
     setTodo({...todo, [event.target.name]: event.target.value});
@@ -11,9 +12,11 @@ function App() {
 
   const addTodo = () => {
     if (todo.description === '' || todo.date === '' || todo.time === '') {
-      alert('Please fill in all fields');
+      setFilled("Please fill in all fields", 2000);
     }else{
       setTodos([...todos, todo]);
+      setTodo({description: '', date: '', time: '', done: false});
+      setFilled(" ");
     }
   }
 
@@ -29,6 +32,8 @@ function App() {
       <input type={'time'} placeholder="Time" name="time" value={todo.time} onChange={inputChanged}/>
       <input type={"date"} placeholder="Date" name="date" value={todo.date} onChange={inputChanged}/>
       <button onClick={addTodo}>Add</button>
+      <br/>
+      <p style={{color: "red"}}>{filled}</p>
       <table>
   <tbody>
     {todos.map((todo, index) => (
