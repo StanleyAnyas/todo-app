@@ -10,7 +10,11 @@ function App() {
   }
 
   const addTodo = () => {
-    setTodos([...todos, todo]);
+    if (todo.description === '' || todo.date === '' || todo.time === '') {
+      alert('Please fill in all fields');
+    }else{
+      setTodos([...todos, todo]);
+    }
   }
 
   const deleteTodo = (row) => {
