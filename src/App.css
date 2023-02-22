@@ -12,3 +12,6 @@ table {
 .todo-cell h3 {
   margin: 0 8px;
 }
+button {
+  border-radius: 5px;
+}
