@@ -1,8 +1,6 @@
 import './App.css';
 import React, { useState } from 'react';
 
-
-
 function App() {
     const [todo, setTodo] = useState({description: '', date: '', time: '', done: false});
     const [todos, setTodos] = useState([]);
