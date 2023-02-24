@@ -1,5 +1,14 @@
 import './App.css';
 import React, { useState } from 'react';
+import { Button } from '@material-ui/core';
+import IconButton from'@mui/material/IconButton';
+import DeleteIcon from '@mui/icons-material/Delete';
+import TextField from '@mui/material/TextField';
+import { Stack } from '@mui/system';
+import AppBar from '@mui/material/AppBar';
+import Toolbar from '@mui/material/Toolbar';
+import Typography from '@mui/material/Typography';
+
 
 function App() {
     const [todo, setTodo] = useState({description: '', date: '', time: '', done: false});
@@ -28,10 +37,19 @@ function App() {
   }
   return (
     <div className="App">
-      <input placeholder="Description" name="description" value={todo.description} onChange={inputChanged} />
-      <input type={'time'} placeholder="Time" name="time" value={todo.time} onChange={inputChanged}/>
-      <input type={"date"} placeholder="Date" name="date" value={todo.date} onChange={inputChanged}/>
-      <button onClick={addTodo}>Add</button>
+      <AppBar position="static">
+        <Toolbar>
+          <Typography variant="h6">
+            Todolist
+          </Typography>
+        </Toolbar>
+      </AppBar>
+      <Stack spacing={2} mt={2} direction="row" justifyContent="center" alignItems="center">
+      <TextField type={Text} label="Description" variant="outlined" name="description" value={todo.description} onChange={inputChanged} />
+      <TextField id="outlined-basic" type={"time"} variant="outlined" name="time" value={todo.time} onChange={inputChanged}/>
+      <TextField id="outlined-basic" type={"date"} variant="outlined" name="date" value={todo.date} onChange={inputChanged}/>
+      <Button variant="contained" onClick={addTodo}>Add</Button>
+      </Stack>
       <br/>
       <p style={{color: "red"}}>{filled}</p>
       <table>
@@ -42,9 +60,9 @@ function App() {
           <h3>{todo.description}</h3> by <h3>{todo.time}</h3> on <h3>{todo.date}</h3>
         </td>
         <td>
-          <button onClick={() => deleteTodo(index)} style={{ color: "red" }}>
-            Delete
-          </button>
+          <IconButton>
+            <DeleteIcon onClick={() => deleteTodo(index)} style={{ color: "red" }}/>
+          </IconButton>
           {!todo.done && <button onClick={() => doneTodo(index)} style={{ color: "green" }}>
             Done
           </button>}
