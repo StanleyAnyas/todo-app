@@ -1,5 +1,5 @@
 import './App.css';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button } from '@material-ui/core';
 import IconButton from'@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -8,12 +8,24 @@ import { Stack } from '@mui/system';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
+import AddTodo from './AddTodo';
 
 
 function App() {
     const [todo, setTodo] = useState({description: '', date: '', time: '', done: false});
     const [todos, setTodos] = useState([]);
     const [filled, setFilled] = useState(" ");
+
+    useEffect(() => {
+        fecthItems();
+    }, []);
+
+    const fecthItems = () => {
+        fetch('https://my-todolist-app-cff9e-default-rtdb.europe-west1.firebasedatabase.app/.json')
+        .then(response => response.json())
+        .then(data => setTodos(Object.values(data)))
+        .catch(error => console.log(error));
+    }
 
     const inputChanged = (event) => {
     setTodo({...todo, [event.target.name]: event.target.value});
@@ -44,6 +56,7 @@ function App() {
           </Typography>
         </Toolbar>
       </AppBar>
+      <AddTodo addTodo={addTodo} />
       <Stack spacing={2} mt={2} direction="row" justifyContent="center" alignItems="center">
       <TextField type={Text} label="Description" variant="outlined" name="description" value={todo.description} onChange={inputChanged} />
       <TextField id="outlined-basic" type={"time"} variant="outlined" name="time" value={todo.time} onChange={inputChanged}/>
