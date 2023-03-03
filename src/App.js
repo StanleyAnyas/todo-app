@@ -11,7 +11,7 @@ import Typography from '@mui/material/Typography';
 import Tooltip from '@mui/material/Tooltip';
 import SaveIcon from '@mui/icons-material/Save';
 import DoneIcon from '@mui/icons-material/Done';
-import { DataGrid } from '@mui/x-data-grid';
+//import { DataGrid } from '@mui/x-data-grid';
 import AddTodo from './AddTodo';
 
 
@@ -20,7 +20,7 @@ function App() {
     const [todos, setTodos] = useState([]);
     const [filled, setFilled] = useState(" ");
     todo.id = new Date().getTime();
-    const newTodo = { ...todo, id: new Date().getTime() };
+    //const newTodo = { ...todo, id: new Date().getTime() };
     useEffect(() => {
         fecthItems();
     }, []);
