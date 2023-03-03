@@ -43,6 +43,7 @@ function App() {
       setTodos([...todos, todo]);
       setTodo({description: '', date: '', time: '', done: false});
       setFilled(" ");
+      saveTodos();
     }
   }
 
@@ -52,6 +53,66 @@ function App() {
   const doneTodo = (row) => {
     setTodos(todos.map((todo, index) => index === row ? {...todo, done: true} : todo));
   }
+  
+  const undoTodo = (row) => {
+    setTodos(todos.map((todo, index) => index === row ? {...todo, done: false} : todo));
+  }
+  
+  const saveTodos = () => {
+    fetch('https://my-todolist-app-cff9e-default-rtdb.europe-west1.firebasedatabase.app/.json', {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(todos)
+    })
+    .then(response => response.json())
+    .then(data => console.log(data))
+    .catch(error => console.log(error));
+  }
+  
+  const deleteAllTodos = () => {
+    setTodos([]);
+    setFilled(" ");
+  }
+ 
+  const deleteAllDoneTodos = () => {
+    setTodos(todos.filter(todo => !todo.done));
+    setFilled(" ");
+  }
+ // create a function undelete the todo
+  const undeleteTodo = (row) => {
+    setTodos(todos.filter((todo, index) => index !== row));
+  }
+  const undeleteButton = (row) => {
+     // after 5 seconds the button should disappear
+    return (
+      <Button variant="contained" onClick={() => undeleteTodo(row)}>Undelete</Button>
+    )
+  }
+  setTimeout(() => {
+    undeleteButton();
+  }, 5000);
+  const undoButton = (row) => {
+    return (
+      <Tooltip title="Reset as undone">
+        <Button variant="contained" onClick={() => undoTodo(row)}>Undo</Button>
+      </Tooltip>
+      
+    )
+  }
+  
+    const deleteAllButton = () => {
+    return (
+      <Button variant="contained" onClick={() => deleteAllTodos()}>Delete all</Button>
+    )
+    }
+   
+    const deleteAllDoneButton = () => {
+    return (
+      <Button variant="contained" onClick={() => deleteAllDoneTodos()}>Delete all done</Button>
+    )
+    }
   return (
     <div className="App">
       <AppBar position="static">
@@ -88,12 +149,21 @@ function App() {
           {!todo.done && <IconButton onClick={() => doneTodo(index)} style={{ color: "green" }}>
             <DoneIcon />
           </IconButton>}
+          {todo.done && undoButton(index)}
         </td>
       </tr>
     ))}
   </tbody>
+  <br/>
+  <Tooltip title="Delete all todos">
+    {deleteAllButton()}
+  </Tooltip>
+  <br/>
+  <br/>
+  <Tooltip title="Delete all done todos">
+    {deleteAllDoneButton()}
+  </Tooltip>
 </table>
-
     </div>
   );
 }
