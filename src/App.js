@@ -9,6 +9,9 @@ import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Tooltip from '@mui/material/Tooltip';
+import SaveIcon from '@mui/icons-material/Save';
+import DoneIcon from '@mui/icons-material/Done';
+import { DataGrid } from '@mui/x-data-grid';
 import AddTodo from './AddTodo';
 
 
@@ -16,7 +19,8 @@ function App() {
     const [todo, setTodo] = useState({description: '', date: '', time: '', done: false});
     const [todos, setTodos] = useState([]);
     const [filled, setFilled] = useState(" ");
-
+    todo.id = new Date().getTime();
+    const newTodo = { ...todo, id: new Date().getTime() };
     useEffect(() => {
         fecthItems();
     }, []);
@@ -63,7 +67,7 @@ function App() {
       <TextField id="outlined-basic" type={"time"} variant="outlined" name="time" value={todo.time} onChange={inputChanged}/>
       <TextField id="outlined-basic" type={"date"} variant="outlined" name="date" value={todo.date} onChange={inputChanged}/>
       <Tooltip title="Add todo">
-        <Button variant="contained" onClick={addTodo}>Add</Button>
+        <Button variant="contained" startIcon={<SaveIcon />} onClick={addTodo}>Add</Button>
       </Tooltip>
       </Stack>
       <br/>
@@ -77,13 +81,13 @@ function App() {
         </td>
         <td>
               <Tooltip title="Delete todo">
-                <IconButton onClick={() => deleteTodo(index)} size="small" color="error">
+                <IconButton onClick={() => deleteTodo(index)} size="small" color="red">
                   <DeleteIcon />
                 </IconButton>
               </Tooltip>
-          {!todo.done && <button onClick={() => doneTodo(index)} style={{ color: "green" }}>
-            Done
-          </button>}
+          {!todo.done && <IconButton onClick={() => doneTodo(index)} style={{ color: "green" }}>
+            <DoneIcon />
+          </IconButton>}
         </td>
       </tr>
     ))}
