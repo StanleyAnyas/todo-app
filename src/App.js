@@ -115,55 +115,55 @@ function App() {
     }
   return (
     <div className="App">
-      <AppBar position="static">
-        <Toolbar>
-          <Typography variant="h6">
-            Todolist
-          </Typography>
-        </Toolbar>
-      </AppBar>
-      <AddTodo addTodo={addTodo} />
-      <Stack spacing={2} mt={2} direction="row" justifyContent="center" alignItems="center">
-      <TextField type={Text} label="Description" variant="outlined" name="description" value={todo.description} onChange={inputChanged} />
-      <TextField id="outlined-basic" type={"time"} variant="outlined" name="time" value={todo.time} onChange={inputChanged}/>
-      <TextField id="outlined-basic" type={"date"} variant="outlined" name="date" value={todo.date} onChange={inputChanged}/>
-      <Tooltip title="Add todo">
-        <Button variant="contained" startIcon={<SaveIcon />} onClick={addTodo}>Add</Button>
-      </Tooltip>
-      </Stack>
-      <br/>
-      <p style={{color: "red"}}>{filled}</p>
-      <table>
-  <tbody>
-    {todos.map((todo, index) => (
-      <tr key={index} style={{ backgroundColor: todo.done ? 'green' : 'transparent' }}>
-        <td className='todo-cell'>
-          <h3>{todo.description}</h3> by <h3>{todo.time}</h3> on <h3>{todo.date}</h3>
-        </td>
-        <td>
-              <Tooltip title="Delete todo">
-                <IconButton onClick={() => deleteTodo(index)} size="small" color="red">
-                  <DeleteIcon />
-                </IconButton>
-              </Tooltip>
-          {!todo.done && <IconButton onClick={() => doneTodo(index)} style={{ color: "green" }}>
-            <DoneIcon />
-          </IconButton>}
-          {todo.done && undoButton(index)}
-        </td>
-      </tr>
-    ))}
-  </tbody>
-  <br/>
-  <Tooltip title="Delete all todos">
-    {deleteAllButton()}
-  </Tooltip>
-  <br/>
-  <br/>
-  <Tooltip title="Delete all done todos">
-    {deleteAllDoneButton()}
-  </Tooltip>
-</table>
+          <AppBar position="static">
+            <Toolbar>
+              <Typography variant="h6">
+                Todolist
+              </Typography>
+            </Toolbar>
+          </AppBar>
+          <AddTodo addTodo={addTodo} />
+          <Stack spacing={2} mt={2} direction="row" justifyContent="center" alignItems="center">
+          <TextField type={Text} label="Description" variant="outlined" name="description" value={todo.description} onChange={inputChanged} />
+          <TextField id="outlined-basic" type={"time"} variant="outlined" name="time" value={todo.time} onChange={inputChanged}/>
+          <TextField id="outlined-basic" type={"date"} variant="outlined" name="date" value={todo.date} onChange={inputChanged}/>
+          <Tooltip title="Add todo">
+            <Button variant="contained" startIcon={<SaveIcon />} onClick={addTodo}>Add</Button>
+          </Tooltip>
+          </Stack>
+          <br/>
+          <p style={{color: "red"}}>{filled}</p>
+          <table>
+            <tbody>
+              {todos.map((todo, index) => (
+                <tr key={index} style={{ backgroundColor: todo.done ? 'green' : 'transparent' }}>
+                  <td className='todo-cell'>
+                    <h3>{todo.description}</h3> by <h3>{todo.time}</h3> on <h3>{todo.date}</h3>
+                  </td>
+                  <td>
+                        <Tooltip title="Delete todo">
+                          <IconButton onClick={() => deleteTodo(index)} size="small" color="red">
+                            <DeleteIcon />
+                          </IconButton>
+                        </Tooltip>
+                    {!todo.done && <IconButton onClick={() => doneTodo(index)} style={{ color: "green" }}>
+                      <DoneIcon />
+                    </IconButton>}
+                    {todo.done && undoButton(index)}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+            <br/>
+            <Tooltip title="Delete all todos">
+              {deleteAllButton()}
+            </Tooltip>
+            <br/>
+            <br/>
+            <Tooltip title="Delete all done todos">
+              {deleteAllDoneButton()}
+            </Tooltip>
+      </table>
     </div>
   );
 }
