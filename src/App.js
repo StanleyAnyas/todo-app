@@ -8,6 +8,7 @@ import { Stack } from '@mui/system';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
+import Tooltip from '@mui/material/Tooltip';
 import AddTodo from './AddTodo';
 
 
@@ -61,7 +62,9 @@ function App() {
       <TextField type={Text} label="Description" variant="outlined" name="description" value={todo.description} onChange={inputChanged} />
       <TextField id="outlined-basic" type={"time"} variant="outlined" name="time" value={todo.time} onChange={inputChanged}/>
       <TextField id="outlined-basic" type={"date"} variant="outlined" name="date" value={todo.date} onChange={inputChanged}/>
-      <Button variant="contained" onClick={addTodo}>Add</Button>
+      <Tooltip title="Add todo">
+        <Button variant="contained" onClick={addTodo}>Add</Button>
+      </Tooltip>
       </Stack>
       <br/>
       <p style={{color: "red"}}>{filled}</p>
@@ -73,9 +76,11 @@ function App() {
           <h3>{todo.description}</h3> by <h3>{todo.time}</h3> on <h3>{todo.date}</h3>
         </td>
         <td>
-          <IconButton>
-            <DeleteIcon onClick={() => deleteTodo(index)} style={{ color: "red" }}/>
-          </IconButton>
+              <Tooltip title="Delete todo">
+                <IconButton onClick={() => deleteTodo(index)} size="small" color="error">
+                  <DeleteIcon />
+                </IconButton>
+              </Tooltip>
           {!todo.done && <button onClick={() => doneTodo(index)} style={{ color: "green" }}>
             Done
           </button>}
