@@ -23,6 +23,11 @@ const AddTodo = (prop) => {
     }
     const handleSave = () => {
         prop.addTodo(todo);
+        if(todo.description !== "" && todo.date !== "" && todo.priority !== ""){
+            setTodo({description: "", date: "", priority: ""});
+        }else{
+            alert("Please fill in all fields");
+        }
         handleClose();
     }
   return (
